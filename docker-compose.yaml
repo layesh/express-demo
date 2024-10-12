@@ -1,6 +1,7 @@
 services:
   mongo:
     image: mongo
+    container_name: mongo
     ports:
       - 27017:27017
     environment:
@@ -8,6 +9,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=password
   mongo-express:
     image: mongo-express
+    container_name: mongo-express
     ports:
       - 8081:8081
     environment:
@@ -16,3 +18,11 @@ services:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
       - ME_CONFIG_MONGODB_ADMINPASSWORD=password
       - ME_CONFIG_MONGODB_SERVER=mongo
+  express-demo:
+    build: .
+    container_name: express-demo
+    ports:
+      - 5000:5000
+    depends_on:
+      mongo:
+        condition: service_started
