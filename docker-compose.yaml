@@ -7,6 +7,8 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - mongo-data:/data/db
   mongo-express:
     image: mongo-express
     container_name: mongo-express
@@ -26,3 +28,6 @@ services:
     depends_on:
       mongo:
         condition: service_started
+volumes:
+  mongo-data:
+    driver: local
